@@ -11,7 +11,7 @@ The prototype serves shipping companies (payers), carriers, warehouse receivers,
 | Live application     | [app.tibaprotocol.xyz](https://app.tibaprotocol.xyz/start)                              |
 | Product landing page | [tibaprotocol-monad.vercel.app](https://tibaprotocol-monad.vercel.app)                  |
 | Public repository    | [AncungAulia/tibaprotocol-monad](https://github.com/AncungAulia/tibaprotocol-monad)     |
-| Demo video           | [Watch the demo on X](https://x.com/tibaprotocol/status/2113913902941737098?s=20)          |
+| Demo video           | [Watch the demo on X](https://x.com/tibaprotocol/status/2113913902941737098)          |
 | Network              | **Monad Testnet**, chain ID **10143**, gas token **MON**                                |
 | RPC / MON faucet     | [Testnet RPC](https://testnet-rpc.monad.xyz) / [Monad faucet](https://faucet.monad.xyz) |
 
@@ -26,22 +26,6 @@ Canonical addresses come from [sc/deployments/10143.json](sc/deployments/10143.j
 | TibaPool implementation        | Current pool logic after upgrade                          | Monad Testnet | `0xD4859b488BE6C3FE7AD3AE4a432aA312176d047e` | [Code](https://testnet.monadscan.com/address/0xD4859b488BE6C3FE7AD3AE4a432aA312176d047e#code) |
 
 Checked on 24 October 2026: Monadscan shows **Source Code Verified / Exact Match** for MockUSDC, ShipmentManager's proxy and implementation, and the current TibaPool implementation. The TibaPool proxy page also references a **Similar Match** to the ShipmentManager proxy; its independent verification status is not asserted here. Read-only RPC checks confirmed bytecode at all three application addresses and both proxy implementation slots matching the manifest. Verification is not a security audit.
-
-## Screenshots
-
-Captured from the deployed demo on 24 October 2026. Balances shown are testnet demo funds.
-
-**Investor pool** — the account's existing 500 USDC deposit and available pool liquidity.
-
-![Investor pool showing the deposited balance, deposit and withdrawal controls, and pool liquidity](docs/screenshots/investor-pool.jpg)
-
-**Deposit form** — amount entry and percentage shortcuts. This capture shows a prepared deposit; it does not show a new wallet approval or completed transaction.
-
-<img src="docs/screenshots/deposit.jpg" alt="Deposit dialog with 500 USDC entered, percentage shortcuts, and wallet balance" width="500" />
-
-**Transaction receipt** — Monadscan confirmation of the account's previously completed 500 Test USDC pool deposit.
-
-![Monadscan receipt showing a successful 500 Test USDC transfer to the pool on Monad Testnet](docs/screenshots/deposit-receipt.jpg)
 
 ## Working features
 
