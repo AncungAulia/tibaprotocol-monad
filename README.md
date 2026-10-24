@@ -11,7 +11,7 @@ The prototype serves shipping companies (payers), carriers, warehouse receivers,
 | Live application     | [app.tibaprotocol.xyz](https://app.tibaprotocol.xyz/start)                              |
 | Product landing page | [tibaprotocol-monad.vercel.app](https://tibaprotocol-monad.vercel.app)                  |
 | Public repository    | [AncungAulia/tibaprotocol-monad](https://github.com/AncungAulia/tibaprotocol-monad)     |
-| Demo video           | `<DEMO_VIDEO_URL>` — public video URL not found                                         |
+| Demo video           | [Watch the demo on X](https://x.com/tibaprotocol/status/2113913902941737098?s=20)          |
 | Network              | **Monad Testnet**, chain ID **10143**, gas token **MON**                                |
 | RPC / MON faucet     | [Testnet RPC](https://testnet-rpc.monad.xyz) / [Monad faucet](https://faucet.monad.xyz) |
 
@@ -227,4 +227,4 @@ Core dependencies include Next.js, React, Tailwind CSS, Privy, wagmi, viem, Supa
 
 Documentation checks on 24 October 2026: package scripts, paths, example environment names, contract constants, tracked broadcast receipts, live app/landing HTTP 200 responses, public GitHub visibility, explorer source labels, and read-only RPC deployment evidence were inspected. Local frontend tests passed **79/79**, backend **108/108**, and landing **114/114**. `pnpm --filter @tiba/sc exec forge build` succeeded with Solidity 0.8.28 and timestamp-related lint warnings. Contract tests, production builds, typecheck scripts, fresh dependency installation, and the authenticated live flow were not run for this documentation change; their commands were checked against the repository. These results do not constitute a live end-to-end test.
 
-Before submission, fill `<DEMO_VIDEO_URL>` and `<TEAM_ROSTER_AND_CONTACT>`, confirm the TibaPool proxy's independent verification status, and rehearse the authenticated multi-role flow. The [organizer's submission guide](https://github.com/monad-developers/monad-blitz-jogja) directs teams to fork its template and continue through the [Blitz Portal](https://blitz.devnads.com). Template-fork compliance, portal submission, team registration, and complete eligibility have not been verified by this README update.
+Before submission, fill `<TEAM_ROSTER_AND_CONTACT>`, confirm the TibaPool proxy's independent verification status, and rehearse the authenticated multi-role flow. The [organizer's submission guide](https://github.com/monad-developers/monad-blitz-jogja) directs teams to fork its template and continue through the [Blitz Portal](https://blitz.devnads.com). Template-fork compliance, portal submission, team registration, and complete eligibility have not been verified by this README update.
