@@ -36,10 +36,10 @@ The prototype serves shipping companies (payers), carriers, warehouse receivers,
 | Website                     | [tibaprotocol.xyz](https://tibaprotocol.xyz)                                                                                        |
 | Aplikasi / live demo        | [app.tibaprotocol.xyz](https://app.tibaprotocol.xyz/start)                                                                          |
 | GitHub                      | [AncungAulia/tibaprotocol-monad](https://github.com/AncungAulia/tibaprotocol-monad)                                                 |
-| X                           | [@tibaprotocol](https://x.com/tibaprotocol)                                                                                         |
+| X                           | [@tibaprotocol](https://x.com/tibaprotocol) (5k views)                                                                                         |
 | Video ads                   | [Creative advertisement](https://x.com/tibaprotocol/status/2113876303518851249)                                                     |
 | Video demo                  | [Product walkthrough](https://x.com/tibaprotocol/status/2113913902941737098)                                                        |
-| Analisis bisnis & finansial | [Google Sheets](https://docs.google.com/spreadsheets/d/1VP3KhXtOFONaZUZ8-TaUqByXWfMsN3XRP07V3H8db6M/edit?gid=75800805#gid=75800805) |
+| Business & financial analysis | [Google Sheets](https://docs.google.com/spreadsheets/d/1VP3KhXtOFONaZUZ8-TaUqByXWfMsN3XRP07V3H8db6M/edit?gid=75800805#gid=75800805) |
 
 | Resource             | Link / status                                                                           |
 | -------------------- | --------------------------------------------------------------------------------------- |
