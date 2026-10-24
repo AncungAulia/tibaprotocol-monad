@@ -38,7 +38,8 @@ export function FanMeter({
       className={cn(
         "flex max-w-full",
         // The skew pushes the outer bars sideways, so the large meter keeps a small inset.
-        large ? "h-10 gap-[clamp(3px,1.5%,10px)] px-2" : "h-[18px]",
+        // Packed to the left like the design (16 bars about 22px wide); shrinks on narrow cards.
+        large ? "h-11 w-full max-w-[460px] gap-1.5 px-2" : "h-[18px]",
         !large && className,
       )}
     >
@@ -49,8 +50,7 @@ export function FanMeter({
             <span
               className={cn(
                 "relative h-full overflow-hidden rounded-full bg-line-strong",
-                // Capped so wide cards space the bars out instead of turning them into ovals.
-                large ? "w-full max-w-[18px] -skew-x-[20deg]" : "w-[3.4px] -skew-x-[27deg]",
+                large ? "w-full -skew-x-[20deg]" : "w-[3.4px] -skew-x-[27deg]",
               )}
             >
               <span
