@@ -1,17 +1,47 @@
-# TIBA — Tokenized Invoice Based on Arrival
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="fe/public/brand/tiba-horizontal-reversed.svg" />
+    <img src="fe/public/brand/tiba-horizontal.svg" alt="TIBA" width="240" />
+  </picture>
+</p>
+
+<h1 align="center">TIBA — Tokenized Invoice Based on Arrival</h1>
 
 TIBA helps freight carriers collect an agreed shipping fee after delivery instead of waiting until the payer's due date. A shipping company approves the fee and receiver in advance; the receiver confirms arrival; the carrier can then request **97.5% of the fee** from an investor-funded pool. The payer later repays the full fee. The remaining 2.5% is split 80% to the pool and 20% to the treasury.
 
 The prototype serves shipping companies (payers), carriers, warehouse receivers, and liquidity providers. Delivery acceptance gates financing through a shared contract state machine. Pool shares are internal accounting balances, not transferable invoice NFTs.
 
+<p align="center">
+  <a href="#live-demo-and-contracts">Live demo and contracts</a> ·
+  <a href="#working-features">Working features</a> ·
+  <a href="#how-to-try-the-demo">How to try the demo</a>
+  <br />
+  <a href="#why-monad">Why Monad</a> ·
+  <a href="#architecture-and-tech-stack">Architecture and tech stack</a> ·
+  <a href="#local-setup">Local setup</a> ·
+  <a href="#contract-deployment-and-verification">Contract deployment and verification</a>
+  <br />
+  <a href="#limitations--future-work">Limitations / Future Work</a> ·
+  <a href="#team-and-credits">Team and credits</a> ·
+  <a href="#validation-and-submission-gaps">Validation and submission gaps</a>
+</p>
+
+---
+
 ## Live demo and contracts
+
+| Bagian                      | Link                                                                                                                                |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Website                     | [tibaprotocol.xyz](https://tibaprotocol.xyz)                                                                                        |
+| Aplikasi / live demo        | [app.tibaprotocol.xyz](https://app.tibaprotocol.xyz/start)                                                                          |
+| GitHub                      | [AncungAulia/tibaprotocol-monad](https://github.com/AncungAulia/tibaprotocol-monad)                                                 |
+| X                           | [@tibaprotocol](https://x.com/tibaprotocol)                                                                                         |
+| Video ads                   | [Creative advertisement](https://x.com/tibaprotocol/status/2113876303518851249)                                                     |
+| Video demo                  | [Product walkthrough](https://x.com/tibaprotocol/status/2113913902941737098)                                                        |
+| Analisis bisnis & finansial | [Google Sheets](https://docs.google.com/spreadsheets/d/1VP3KhXtOFONaZUZ8-TaUqByXWfMsN3XRP07V3H8db6M/edit?gid=75800805#gid=75800805) |
 
 | Resource             | Link / status                                                                           |
 | -------------------- | --------------------------------------------------------------------------------------- |
-| Live application     | [app.tibaprotocol.xyz](https://app.tibaprotocol.xyz/start)                              |
-| Product landing page | [tibaprotocol-monad.vercel.app](https://tibaprotocol-monad.vercel.app)                  |
-| Public repository    | [AncungAulia/tibaprotocol-monad](https://github.com/AncungAulia/tibaprotocol-monad)     |
-| Demo video           | [Watch the demo on X](https://x.com/tibaprotocol/status/2113913902941737098)          |
 | Network              | **Monad Testnet**, chain ID **10143**, gas token **MON**                                |
 | RPC / MON faucet     | [Testnet RPC](https://testnet-rpc.monad.xyz) / [Monad faucet](https://faucet.monad.xyz) |
 
@@ -27,6 +57,8 @@ Canonical addresses come from [sc/deployments/10143.json](sc/deployments/10143.j
 
 Checked on 24 October 2026: Monadscan shows **Source Code Verified / Exact Match** for MockUSDC, ShipmentManager's proxy and implementation, and the current TibaPool implementation. The TibaPool proxy page also references a **Similar Match** to the ShipmentManager proxy; its independent verification status is not asserted here. Read-only RPC checks confirmed bytecode at all three application addresses and both proxy implementation slots matching the manifest. Verification is not a security audit.
 
+---
+
 ## Working features
 
 - Wallet or email login through Privy, role onboarding, company submission, carrier invitations, and destination receiver invitations.
@@ -35,6 +67,8 @@ Checked on 24 October 2026: Monadscan shows **Source Code Verified / Exact Match
 - Accepted deliveries enable a carrier-requested 97.5% advance, subject to payer credit and available pool cash. Disputed deliveries cannot be financed.
 - Investors deposit MockUSDC, receive pool shares, inspect their transaction history, and withdraw up to the available idle cash. Payers repay financed bills; an unfinanced accepted delivery can instead be paid in full directly to the carrier through the pool contract.
 - Dashboards read contract state and expose transaction receipts. Financed overdue bills block new shipments; the demo grace period is 60 seconds after the due date.
+
+---
 
 ## How to try the demo
 
@@ -52,6 +86,8 @@ Use separate wallets/accounts for payer, carrier, receiver, and optionally inves
 
 Dashboard polling can take 15–30 seconds to reflect another participant's action. If an advance fails, check idle pool cash and payer credit. If an external wallet cancels a transaction, retry from the same shipment.
 
+---
+
 ## Why Monad
 
 Monad is the settlement layer for shipment creation, pickup, receiver acceptance/dispute, pool deposits and withdrawals, credit limits, advances, and repayments. The implementation uses Solidity, OpenZeppelin UUPS proxies, Foundry, and viem/wagmi against Monad's EVM JSON-RPC, allowing the same tools and ABI package to serve both client and server.
@@ -59,6 +95,8 @@ Monad is the settlement layer for shipment creation, pickup, receiver acceptance
 The important property for this product is shared, enforceable settlement: only the recorded carrier can pick up or request an advance, only the receiver can accept delivery, and the pool checks delivery state, credit, and liquidity before transferring tokens. Repayment updates accounting and transfers funds in one contract transaction. No application-specific throughput, latency, or gas-cost benchmark has been measured here.
 
 Company identity, invitations, addresses, cargo descriptions, planned quantities, route geometry, GPS, and problem notes remain off-chain. A receiver's submitted quantity and acceptance decision are recorded on-chain. GPS and demo animation do not independently prove physical delivery.
+
+---
 
 ## Architecture and tech stack
 
@@ -80,6 +118,8 @@ The API validates wallet identity and shipment participation before protected op
 | [be/](be/README.md)                     | Authenticated API, database setup, deployment and service checks                                     |
 | [sc/](sc/README.md)                     | Solidity contracts, Foundry tests/scripts, typed ABIs and canonical addresses exported as `@tiba/sc` |
 | [landing-page/](landing-page/README.md) | Separate Next.js 16 static marketing site; GSAP/Lenis motion                                         |
+
+---
 
 ## Local setup
 
@@ -167,6 +207,8 @@ pnpm build:landing
 
 Backend unit tests use dummy service settings and mocked external services; they do not require live credentials. `pnpm --filter @tiba/be verify:chain` is a read-only live configuration check. **Do not use `be e2e`, contract `smoke`, `seed`, or `deploy` as read-only checks**: they exercise live services and/or send transactions.
 
+---
+
 ## Contract deployment and verification
 
 The committed [deployment broadcast](sc/broadcast/Deploy.s.sol/10143/run-latest.json) contains successful creation receipts. Read-only RPC receipt/block queries confirmed these timestamps:
@@ -200,6 +242,8 @@ These are documented transaction-producing commands, **not run for this README c
 
 `pnpm verify` submits compiler input to the Monad verification API via [sc/scripts/verify.mjs](sc/scripts/verify.mjs). It requires `forge`, `cast`, compiled artifacts, and the matching `broadcast/Deploy.s.sol/10143/run-latest.json` for proxy constructor arguments. Confirm results on the explorer; running the script alone does not prove verification. No new verification submission was made during this documentation update.
 
+---
+
 ## Limitations / Future Work
 
 - Testnet prototype using an owner-mintable mock token. Seeded liquidity represents demo funding; dashboard balances are not evidence of commercial freight activity.
@@ -208,6 +252,8 @@ These are documented transaction-producing commands, **not run for this README c
 - No dispute-resolution transition, collateral liquidation, or bad-debt recovery is implemented. A disputed shipment cannot proceed to financing. Pool asset accounting carries advances at cost; withdrawals can be limited by idle cash, and repayment is not guaranteed.
 - Privy, Supabase, Monad RPC, Photon, and CARTO are external dependencies. OpenRouteService is optional. Address search can fail; manual entry/map pin placement remains available. Invitations are shared links; entering a receiver email does not send an invitation email.
 - No production audit, mainnet deployment, or measured throughput/cost claims are provided. Full authenticated multi-account live acceptance testing remains separate from unit tests and HTTP availability checks.
+
+---
 
 ## Team and credits
 
@@ -222,6 +268,8 @@ Git history attributes the following work; these are commit author names, not in
 Confirm the submission roster and contact details: `<TEAM_ROSTER_AND_CONTACT>`.
 
 Core dependencies include Next.js, React, Tailwind CSS, Privy, wagmi, viem, Supabase, Express, Zod, Foundry, forge-std, OpenZeppelin Contracts/Upgrades, MapLibre, Turf, Photon, OpenRouteService, CARTO, GSAP, and Lenis. Contracts carry SPDX MIT notices. Place-data credits and licenses are in [fe/public/places/README.md](fe/public/places/README.md); flag-icons attribution is in [its MIT license](fe/public/flags/LICENSE-flag-icons.txt). The landing README credits the `forepay/landing-page` architecture/motion reference. Several commits migrate earlier TIBA work; event-specific originality eligibility has not been established here.
+
+---
 
 ## Validation and submission gaps
 
