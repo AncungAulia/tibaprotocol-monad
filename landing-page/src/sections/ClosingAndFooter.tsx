@@ -5,7 +5,7 @@ import { Logo, Wordmark } from "@/components/Logo"
 import { Reveal } from "@/components/Reveal"
 import { Title } from "@/components/Title"
 import { landing } from "@/content/landing"
-import { APP_URL, CONTRACT_URL, GITHUB_URL } from "@/lib/env"
+import { APP_URL, GITHUB_URL, X_URL } from "@/lib/env"
 
 // Landing v2 / Footer, top half: the marigold closing card with the coin render. Phones put
 // the render under the words; wider frames put it on the right, blended into the marigold.
@@ -103,8 +103,8 @@ export function SiteFooter() {
                   </a>
                 </li>
                 <li>
-                  <a href={CONTRACT_URL} target="_blank" rel="noreferrer" className={linkClass}>
-                    {f.build.contracts}
+                  <a href={X_URL} target="_blank" rel="noreferrer" className={linkClass}>
+                    {f.build.x}
                   </a>
                 </li>
               </ul>

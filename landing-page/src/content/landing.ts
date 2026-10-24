@@ -155,7 +155,7 @@ export const landing = {
       title: "Build",
       app: "Open the app",
       github: "GitHub",
-      contracts: "Contracts on Monadscan",
+      x: "X",
     },
     legal: "© 2026 Tiba Protocol",
     testnet: "Live on Monad testnet",
