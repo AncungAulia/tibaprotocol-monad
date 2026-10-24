@@ -121,7 +121,7 @@ export function PoolMoneyDialog({
                 onChange={(event) => setAmount(event.target.value)}
                 aria-invalid={tooMuch || !!formatError}
                 aria-describedby="pool-amount-hint"
-                className="min-w-0 flex-1 bg-transparent text-[26px] font-medium tabular-nums outline-none placeholder:text-muted-ink"
+                className="min-w-0 flex-1 bg-transparent text-[26px] font-medium tabular-nums outline-none placeholder:text-muted-ink focus-visible:shadow-none"
               />
               <span className="shrink-0 text-muted-ink">USDC</span>
             </div>

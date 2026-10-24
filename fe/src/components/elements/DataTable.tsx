@@ -238,7 +238,7 @@ export function TableSearch({
       <input
         type="search"
         {...props}
-        className="min-w-0 flex-1 bg-transparent text-body outline-none placeholder:text-muted-ink"
+        className="min-w-0 flex-1 bg-transparent text-body outline-none placeholder:text-muted-ink focus-visible:shadow-none"
       />
     </label>
   )

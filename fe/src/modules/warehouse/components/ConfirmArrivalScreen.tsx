@@ -413,7 +413,7 @@ export function ConfirmArrivalScreen({ id }: { id: string }) {
                   </label>
                   <div
                     className={cn(
-                      "flex min-h-14 items-center gap-2 rounded-2xl border bg-surface px-4",
+                      "flex min-h-14 items-center gap-2 rounded-2xl border bg-surface px-4 focus-within:ring-2 focus-within:ring-ring",
                       quantity && qtyError
                         ? "border-danger"
                         : quantity && expected !== undefined && Number(quantity) < expected
@@ -428,7 +428,7 @@ export function ConfirmArrivalScreen({ id }: { id: string }) {
                       onChange={(e) => setQuantity(e.target.value)}
                       aria-invalid={quantity && qtyError ? true : undefined}
                       aria-describedby="received-qty-hint"
-                      className="min-w-0 flex-1 bg-transparent py-3 text-heading font-medium outline-none"
+                      className="min-w-0 flex-1 bg-transparent py-3 text-heading font-medium outline-none focus-visible:shadow-none"
                     />
                     {expected !== undefined && (
                       <span className="shrink-0 text-label text-muted-ink">of {expected}</span>
