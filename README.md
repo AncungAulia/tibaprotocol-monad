@@ -35,7 +35,7 @@ The prototype serves shipping companies (payers), carriers, warehouse receivers,
 | Website                     | [tibaprotocol.xyz](https://tibaprotocol.xyz)                                                                                        |
 | Aplikasi / live demo        | [app.tibaprotocol.xyz](https://app.tibaprotocol.xyz/start)                                                                          |
 | GitHub                      | [AncungAulia/tibaprotocol-monad](https://github.com/AncungAulia/tibaprotocol-monad)                                                 |
-| X                           | [@tibaprotocol](https://x.com/tibaprotocol) (5k views)                                                                                         |
+| X                           | [@tibaprotocol](https://x.com/tibaprotocol) (5k views · [Screenshot proof](#build-in-public)) |
 | Video ads                   | [Creative advertisement](https://x.com/tibaprotocol/status/2113876303518851249)                                                     |
 | Video demo                  | [Product walkthrough](https://x.com/tibaprotocol/status/2113913902941737098)                                                        |
 | Business & financial analysis | [Google Sheets](https://docs.google.com/spreadsheets/d/1VP3KhXtOFONaZUZ8-TaUqByXWfMsN3XRP07V3H8db6M/edit?gid=75800805#gid=75800805) |
@@ -95,6 +95,16 @@ Checked on 24 October 2026: Monadscan shows **Source Code Verified / Exact Match
     </td>
   </tr>
 </table>
+
+### Build in public
+
+The pinned post on X shows **5.4K views** in the screenshot below and tags **@monad**, **@monad_dev**, and **@geeky_kartikey**.
+
+<p align="center">
+  <a href="x.png">
+    <img src="x.png" alt="TIBA Protocol pinned post on X showing 5.4K views and tags for monad, monad_dev, and geeky_kartikey" width="600" />
+  </a>
+</p>
 
 ---
 
@@ -304,6 +314,6 @@ Git history attributes the following work; these are commit author names, not in
 | `Yeypayeyy` | Frontend role screens, wallet integration, shared UI   |
 | `Nasta`     | Backend API, auth, data services, verification scripts |
 
-Confirm the submission roster and contact details: `<TEAM_ROSTER_AND_CONTACT>`.
+Contact: [khoirunasmuhammad@gmail.com](mailto:khoirunasmuhammad@gmail.com).
 
 Core dependencies include Next.js, React, Tailwind CSS, Privy, wagmi, viem, Supabase, Express, Zod, Foundry, forge-std, OpenZeppelin Contracts/Upgrades, MapLibre, Turf, Photon, OpenRouteService, CARTO, GSAP, and Lenis. Contracts carry SPDX MIT notices. Place-data credits and licenses are in [fe/public/places/README.md](fe/public/places/README.md); flag-icons attribution is in [its MIT license](fe/public/flags/LICENSE-flag-icons.txt). The landing README credits the `forepay/landing-page` architecture/motion reference. Several commits migrate earlier TIBA work; event-specific originality eligibility has not been established here.
