@@ -1,0 +1,22 @@
+{
+  "name": "tibaprotocol",
+  "private": true,
+  "version": "0.1.0",
+  "description": "TIBA: Tokenized Invoice Based on Arrival. Goods arrive. Cash flows.",
+  "scripts": {
+    "dev:fe": "pnpm --filter @tiba/fe dev",
+    "dev:be": "pnpm --filter @tiba/be dev",
+    "build:sc": "pnpm --filter @tiba/sc build",
+    "test:sc": "pnpm --filter @tiba/sc test",
+    "build": "pnpm build:sc && pnpm --filter @tiba/be build && pnpm --filter @tiba/fe build",
+    "lint": "pnpm -r lint",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@10.18.0"
+}
