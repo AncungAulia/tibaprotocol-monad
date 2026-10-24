@@ -27,6 +27,22 @@ Canonical addresses come from [sc/deployments/10143.json](sc/deployments/10143.j
 
 Checked on 24 October 2026: Monadscan shows **Source Code Verified / Exact Match** for MockUSDC, ShipmentManager's proxy and implementation, and the current TibaPool implementation. The TibaPool proxy page also references a **Similar Match** to the ShipmentManager proxy; its independent verification status is not asserted here. Read-only RPC checks confirmed bytecode at all three application addresses and both proxy implementation slots matching the manifest. Verification is not a security audit.
 
+## Screenshots
+
+Captured from the deployed demo on 24 October 2026. Balances shown are testnet demo funds.
+
+**Investor pool** — the account's existing 500 USDC deposit and available pool liquidity.
+
+![Investor pool showing the deposited balance, deposit and withdrawal controls, and pool liquidity](docs/screenshots/investor-pool.jpg)
+
+**Deposit form** — amount entry and percentage shortcuts. This capture shows a prepared deposit; it does not show a new wallet approval or completed transaction.
+
+<img src="docs/screenshots/deposit.jpg" alt="Deposit dialog with 500 USDC entered, percentage shortcuts, and wallet balance" width="500" />
+
+**Transaction receipt** — Monadscan confirmation of the account's previously completed 500 Test USDC pool deposit.
+
+![Monadscan receipt showing a successful 500 Test USDC transfer to the pool on Monad Testnet](docs/screenshots/deposit-receipt.jpg)
+
 ## Working features
 
 - Wallet or email login through Privy, role onboarding, company submission, carrier invitations, and destination receiver invitations.
