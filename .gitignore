@@ -1,0 +1,27 @@
+node_modules/
+.env
+.env.local
+.env.*.local
+.DS_Store
+*.log
+.vscode/*
+!.vscode/extensions.json
+
+# fe
+fe/.next/
+fe/.next-preview/
+fe/out/
+fe/next-env.d.ts
+*.tsbuildinfo
+
+# be
+be/dist/
+
+# sc
+sc/out/
+sc/cache/
+sc/broadcast/*/31337/
+sc/broadcast/**/dry-run/
+
+# pnpm shot:ui output
+fe/shots/
