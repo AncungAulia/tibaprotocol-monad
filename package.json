@@ -10,7 +10,9 @@
     "test:sc": "pnpm --filter @tiba/sc test",
     "build": "pnpm build:sc && pnpm --filter @tiba/be build && pnpm --filter @tiba/fe build",
     "lint": "pnpm -r lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "dev:landing": "pnpm --filter @tiba/landing dev",
+    "build:landing": "pnpm --filter @tiba/landing build"
   },
   "devDependencies": {
     "prettier": "^3.4.2"

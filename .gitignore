@@ -25,3 +25,8 @@ sc/broadcast/**/dry-run/
 
 # pnpm shot:ui output
 fe/shots/
+
+# landing-page
+landing-page/.next/
+landing-page/out/
+landing-page/next-env.d.ts

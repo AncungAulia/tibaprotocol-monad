@@ -2,6 +2,7 @@ packages:
   - fe
   - be
   - sc
+  - landing-page
 
 # Privy 3.51.0 omits the recent wallet row key; remove when fixed upstream.
 patchedDependencies:
