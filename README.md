@@ -13,6 +13,7 @@ The prototype serves shipping companies (payers), carriers, warehouse receivers,
 
 <p align="center">
   <a href="#live-demo-and-contracts">Live demo and contracts</a> ·
+  <a href="#screenshots">Screenshots</a> ·
   <a href="#working-features">Working features</a> ·
   <a href="#how-to-try-the-demo">How to try the demo</a>
   <br />
@@ -56,6 +57,45 @@ Canonical addresses come from [sc/deployments/10143.json](sc/deployments/10143.j
 | TibaPool implementation        | Current pool logic after upgrade                          | Monad Testnet | `0xD4859b488BE6C3FE7AD3AE4a432aA312176d047e` | [Code](https://testnet.monadscan.com/address/0xD4859b488BE6C3FE7AD3AE4a432aA312176d047e#code) |
 
 Checked on 24 October 2026: Monadscan shows **Source Code Verified / Exact Match** for MockUSDC, ShipmentManager's proxy and implementation, and the current TibaPool implementation. The TibaPool proxy page also references a **Similar Match** to the ShipmentManager proxy; its independent verification status is not asserted here. Read-only RPC checks confirmed bytecode at all three application addresses and both proxy implementation slots matching the manifest. Verification is not a security audit.
+
+---
+
+## Screenshots
+
+### Landing page
+
+<p align="center">
+  <a href="landing.jpeg">
+    <img src="landing.jpeg" alt="TIBA landing page with the Goods arrive. Cash flows. headline and a delivery truck at a warehouse" width="100%" />
+  </a>
+</p>
+
+<table>
+  <tr>
+    <th width="50%">Payer</th>
+    <th width="50%">Carrier</th>
+  </tr>
+  <tr>
+    <td valign="top">
+      <a href="payer.jpeg"><img src="payer.jpeg" alt="Payer dashboard with shipment overview, map, payment summary, and credit limit" width="100%" /></a>
+    </td>
+    <td valign="top">
+      <a href="carrier.jpeg"><img src="carrier.jpeg" alt="Carrier Trips page showing the no trips yet state and navigation to payouts and companies" width="100%" /></a>
+    </td>
+  </tr>
+  <tr>
+    <th width="50%">Warehouse</th>
+    <th width="50%">Investor</th>
+  </tr>
+  <tr>
+    <td valign="top">
+      <a href="warehouse.jpeg"><img src="warehouse.jpeg" alt="Warehouse Arrivals page for Warehouse Solo showing no trucks expected today" width="100%" /></a>
+    </td>
+    <td valign="top">
+      <a href="investor.jpeg"><img src="investor.jpeg" alt="Investor pool dashboard with deposited balance, deposit and withdrawal controls, pool liquidity, earnings, and recent activity" width="100%" /></a>
+    </td>
+  </tr>
+</table>
 
 ---
 
