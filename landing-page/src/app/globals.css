@@ -1,0 +1,130 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Anchor jumps land below the floating nav. Lenis takes the same offset in SmoothScroll. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+  /* No page scrollbar; wheel, touch and keys still scroll. */
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+/* Double focus ring, as in the TIBA app: white gap, marigold ring, ink edge. */
+:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px #ffffff,
+    0 0 0 6px var(--marigold),
+    0 0 0 7px var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Hide the horizontal scrollbar of the phone carousel; it still scrolls by touch and keys. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Headings whose letters rise from a line (components/RiseText.tsx). Each word clips its letters
+   at a line just under the text, so they come up through a slit, one after another from the
+   left. The padding makes room for descenders without moving the layout. Until a heading comes
+   into view its letters wait under the line. */
+[data-rise-word] {
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+  clip-path: inset(-0.35em -0.25em 0 -0.25em);
+}
+[data-rise="wait"] [data-rise-letter] {
+  transform: translateY(120%);
+}
+
+/* Renders (components/ClayIn.tsx): hidden until they rise into view. */
+[data-clay="wait"] {
+  opacity: 0;
+}
+
+/* Staggered children (components/Stagger.tsx), such as the route pins and the steps: hidden
+   until their group scrolls into view. */
+[data-stagger-wait] [data-stagger] {
+  opacity: 0;
+}
+
+/* The comparison tiles (components/TileRow.tsx): before the row scrolls into view only the
+   outlines show, then each tile fills in turn. */
+[data-tiles="wait"] [data-tile-fill] {
+  opacity: 0;
+}
+
+/* Blocks that fade up into view (components/Reveal.tsx). */
+[data-reveal="wait"] {
+  opacity: 0;
+}
+
+/* The hero builds itself from the server HTML, without waiting for JS: the scene settles from a
+   little larger, the letters rise (RiseText onLoad), then the nav, copy and buttons fade up. */
+@keyframes rise-letter {
+  from {
+    transform: translateY(120%);
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+@keyframes scene-settle {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+}
+.rise-now {
+  animation: rise-letter 900ms cubic-bezier(0.35, 0, 0, 1) both;
+}
+.fade-up-now {
+  animation: fade-up 700ms var(--ease-out) both;
+}
+.fade-down-now {
+  animation: fade-down 600ms var(--ease-out) both;
+}
+.scene-settle-now {
+  animation: scene-settle 1100ms var(--ease-out) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise-now,
+  .fade-up-now,
+  .fade-down-now,
+  .scene-settle-now {
+    animation: none;
+  }
+}

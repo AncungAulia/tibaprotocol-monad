@@ -1,0 +1,42 @@
+/*
+ * TIBA design tokens, from the Pencil design file (Landing v2 frames) and fe/src/styles/globals.css
+ * in the TIBA app. Light theme only. Components use the semantic utilities (bg-canvas, text-ink,
+ * border-line, bg-marigold); change values here, never in components.
+ */
+:root {
+  --ink: #111111;
+  --ink-2: #3d3d3d;
+  --muted: #6b6b6b;
+  --canvas: #f2f2f2;
+  --surface: #ffffff;
+  --surface-3: #ededed;
+  --line: #e6e6e6;
+  --line-strong: #d6d6d6;
+  /* Marigold: fills only (tiles, pins, the closing card). As text only the deep shade. */
+  --marigold: #ffc21a;
+  --marigold-deep: #7d5c00;
+  --success: #1e7d3e;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-marigold: var(--marigold);
+  --color-marigold-deep: var(--marigold-deep);
+  --color-success: var(--success);
+
+  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+}
+
+@theme {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
