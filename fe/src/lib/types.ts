@@ -80,7 +80,7 @@ export type Shipment = {
   deliveredAt: bigint
   receivedQty: number
   status: Status
-  /** USDC the pool paid the carrier early (98%); 0 when the payer paid the carrier directly. */
+  /** USDC the pool paid the carrier early; 0 when the payer paid the carrier directly. */
   advanced: bigint
   trip?: Trip
   metadataError?: string

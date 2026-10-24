@@ -1,4 +1,6 @@
 "use client"
+
+import { ADVANCE_BPS, BPS } from "@tiba/sc"
 import * as Dialog from "@radix-ui/react-dialog"
 import { QRCodeSVG } from "qrcode.react"
 import { ArrowDownToLine, Check, CircleCheck, LoaderCircle, X } from "lucide-react"
@@ -60,11 +62,11 @@ export function ReadyToGetPaid({ shipment: s, pending = false, onPay }: {
 
       </h2>
 
-      <Amount size="hero" value={(s.amount * 98n) / 100n} />
+      <Amount size="hero" value={(s.amount * BigInt(ADVANCE_BPS)) / BigInt(BPS)} />
 
       <p className="text-label leading-relaxed">
 
-        {onPay ? <>Ready for you now. {s.trip?.payer_name ?? "Your shipping company"} pays the rest on {new Date(Number(s.dueDate) * 1000).toLocaleDateString("en-US", { month: "short", day: "numeric" })}.</> : <>98% of {formatUsdcWithUnit(s.amount)} · #{s.id} {tripTitle(s)}</>}
+        {onPay ? <>Ready for you now. {s.trip?.payer_name ?? "Your shipping company"} pays the rest on {new Date(Number(s.dueDate) * 1000).toLocaleDateString("en-US", { month: "short", day: "numeric" })}.</> : <>{(ADVANCE_BPS / BPS) * 100}% of {formatUsdcWithUnit(s.amount)} · #{s.id} {tripTitle(s)}</>}
 
       </p>
 

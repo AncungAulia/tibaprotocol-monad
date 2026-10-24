@@ -1,5 +1,7 @@
 "use client"
 
+import { ADVANCE_BPS, BPS } from "@tiba/sc"
+
 import { useState } from "react"
 import { ArrowDownToLine, Navigation, QrCode, PackageCheck } from "lucide-react"
 import Image from "next/image"
@@ -45,7 +47,7 @@ export function CarrierTripsContent({ name, rows }: { name?: string | null; rows
           <p className="text-caption text-muted-ink">
             You get on arrival
           </p>
-          <Amount value={(s.amount * 98n) / 100n} />
+          <Amount value={(s.amount * BigInt(ADVANCE_BPS)) / BigInt(BPS)} />
         </div>
       </div>
       <div className="mt-4">

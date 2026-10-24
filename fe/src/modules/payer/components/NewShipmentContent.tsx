@@ -1,5 +1,7 @@
 "use client"
 
+import { ADVANCE_BPS, BPS } from "@tiba/sc"
+
 import { MapPin, Route, UserPlus } from "lucide-react"
 import { Button } from "@/components/elements/Button"
 import { Card, TextLink } from "@/components/elements/DataState"
@@ -92,7 +94,7 @@ export function NewShipmentContent({ values: v, onChange, carriers, places, pick
           )}
           <dl className="divide-y divide-line">
             <KeyValue label="Shipping fee">{amount > 0n ? formatUsdcWithUnit(amount) : "-"}</KeyValue>
-            <KeyValue label="Carrier gets on arrival">{amount > 0n ? formatUsdcWithUnit((amount * 98n) / 100n) : "-"}</KeyValue>
+            <KeyValue label="Carrier gets on arrival">{amount > 0n ? formatUsdcWithUnit((amount * BigInt(ADVANCE_BPS)) / BigInt(BPS)) : "-"}</KeyValue>
             <KeyValue label={`You pay by${date ? ` ${date}` : ""}`}>{amount > 0n && v.due ? formatUsdcWithUnit(amount) : "-"}</KeyValue>
           </dl>
           <div className="space-y-2.5">

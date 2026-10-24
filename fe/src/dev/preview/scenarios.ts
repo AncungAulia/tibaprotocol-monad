@@ -1,3 +1,4 @@
+import { ADVANCE_BPS, BPS } from "@tiba/sc"
 /**
  * Sample data for the UI preview mode (NEXT_PUBLIC_UI_PREVIEW=1, see scripts/ui-preview.mjs).
  * Each scenario signs in as one role and fills the React Query cache with the exact shapes the
@@ -84,7 +85,7 @@ function shipment(id: number, status: Status, amount: number, extra: Partial<Shi
     deliveredAt: status >= Status.DELIVERED ? days(-1) : 0n,
     receivedQty: status >= Status.DELIVERED ? 120 : 0,
     status,
-    advanced: financed ? usdc(amount * 0.98) : 0n,
+    advanced: financed ? (usdc(amount) * BigInt(ADVANCE_BPS)) / BigInt(BPS) : 0n,
     trip: trip(id),
     ...extra,
   }

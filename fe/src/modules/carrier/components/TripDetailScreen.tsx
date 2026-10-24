@@ -1,5 +1,7 @@
 "use client"
 
+import { ADVANCE_BPS, BPS } from "@tiba/sc"
+
 import { useState } from "react"
 import { CircleAlert, MapPin, Navigation, PackageCheck, QrCode } from "lucide-react"
 import { Amount } from "@/components/elements/Amount"
@@ -107,7 +109,7 @@ export function TripDetailScreen({ id }: { id: string }) {
         {!shipment ? (
           <Card><EmptyState title="Trip not found" description="This shipment is not assigned to your driver account." /></Card>
         ) : alreadyPaid ? (
-          <TripPaid amount={received ?? (shipment.amount * 98n) / 100n} hash={paid ? transaction.hash : undefined} direct={paidDirectly} />
+          <TripPaid amount={received ?? (shipment.amount * BigInt(ADVANCE_BPS)) / BigInt(BPS)} hash={paid ? transaction.hash : undefined} direct={paidDirectly} />
         ) : (
           <>
             <TextLink href="/carrier" className="text-muted-ink">← Trips</TextLink>
@@ -130,8 +132,8 @@ export function TripDetailScreen({ id }: { id: string }) {
                 {shipment.status === Status.APPROVED && (
                   <Card className="space-y-3 p-6 md:p-6">
                     <h2 className="text-label text-muted-ink">You get on arrival</h2>
-                    <Amount size="hero" value={(shipment.amount * 98n) / 100n} />
-                    <p className="text-label leading-relaxed text-muted-ink">98% of {formatUsdcWithUnit(shipment.amount)}, paid the moment {destination} confirms.</p>
+                    <Amount size="hero" value={(shipment.amount * BigInt(ADVANCE_BPS)) / BigInt(BPS)} />
+                    <p className="text-label leading-relaxed text-muted-ink">{(ADVANCE_BPS / BPS) * 100}% of {formatUsdcWithUnit(shipment.amount)}, paid the moment {destination} confirms.</p>
                     <Button icon={PackageCheck} className="w-full" disabled={transaction.pending} onClick={() => setSheet("pickup")}>Confirm pickup</Button>
                   </Card>
                 )}

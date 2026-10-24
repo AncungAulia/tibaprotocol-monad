@@ -27,11 +27,11 @@ test("empty summary keeps amounts blank, shows existing credit usage and preserv
   assert.doesNotMatch(html, /NaN|Infinity|You pay by Nov 21/)
 })
 
-test("summary retains 98% payout and projects the reservation from actual outstanding credit", () => {
+test("summary retains 97.5% payout and projects the reservation from actual outstanding credit", () => {
   const html = render({ amount: 300_000_000n, valid: true,
     values: { ...props.values, fee: "300", due: "2026-11-21" },
   })
-  assert.match(html, /294\.00 USDC/)
+  assert.match(html, /292\.50 USDC/)
   assert.match(html, /2,700\.00.*?3,000\.00 USDC/)
   assert.match(html, /300\.00 USDC.*?left/)
   assert.match(html, /You pay by Nov 21/)
