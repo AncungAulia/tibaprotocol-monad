@@ -1,0 +1,27 @@
+{
+  "name": "@tiba/sc",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TIBA smart contracts (Foundry) plus typed ABIs and deployed addresses for fe and be.",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "types": "./index.ts",
+  "files": [
+    "index.ts",
+    "abi",
+    "deployments"
+  ],
+  "scripts": {
+    "build": "forge build && node scripts/export-abi.mjs",
+    "test": "forge clean && forge test",
+    "fmt": "forge fmt",
+    "export-abi": "node scripts/export-abi.mjs",
+    "deploy": "forge clean && forge build && forge script script/Deploy.s.sol --rpc-url monad --broadcast",
+    "upgrade": "forge clean && forge build && forge script script/Upgrade.s.sol --rpc-url monad --broadcast",
+    "seed": "forge script script/Seed.s.sol --rpc-url monad --broadcast",
+    "smoke": "forge script script/Smoke.s.sol --rpc-url monad --broadcast --slow",
+    "verify": "node scripts/verify.mjs"
+  }
+}
