@@ -10,8 +10,8 @@ export type Address = `0x${string}`
 export const CHAIN_ID = 10143
 export const USDC_DECIMALS = 6
 
-/** Share of the fee advanced to the carrier (98%). Mirrors TibaPool.ADVANCE_BPS. */
-export const ADVANCE_BPS = 9800
+/** Share of the fee advanced to the carrier (97.5%). Mirrors TibaPool.ADVANCE_BPS. */
+export const ADVANCE_BPS = 9750
 /** Share of the spread sent to the treasury (20%). Mirrors TibaPool.PROTOCOL_SHARE_BPS. */
 export const PROTOCOL_SHARE_BPS = 2000
 export const BPS = 10_000

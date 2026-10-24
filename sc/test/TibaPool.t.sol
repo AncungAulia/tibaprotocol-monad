@@ -8,39 +8,39 @@ import {Status, Shipment} from "../src/interfaces/ITiba.sol";
 contract TibaPoolTest is TibaBase {
     // ---------------------------------------------------------------- the spec's numbers example
 
-    function test_numbersExample_300_294_4p80_1p20() public {
+    function test_numbersExample_300_292p50_6_1p50() public {
         _deposit(investor, LIQUIDITY);
         uint256 id = _delivered(FEE);
 
         vm.expectEmit(address(pool));
-        emit TibaPool.AdvancePaid(id, carrier, payer, 300e6, 294e6);
+        emit TibaPool.AdvancePaid(id, carrier, payer, 300e6, 292.5e6);
         vm.prank(carrier);
         uint256 advance = pool.requestAdvance(id);
 
-        assertEq(advance, 294e6);
-        assertEq(usdc.balanceOf(carrier), 294e6);
-        assertEq(pool.available(), LIQUIDITY - 294e6);
-        assertEq(pool.deployed(), 294e6);
+        assertEq(advance, 292.5e6);
+        assertEq(usdc.balanceOf(carrier), 292.5e6);
+        assertEq(pool.available(), LIQUIDITY - 292.5e6);
+        assertEq(pool.deployed(), 292.5e6);
         assertEq(pool.totalAssets(), LIQUIDITY); // lending does not move the share price
         assertEq(pool.outstanding(payer), 300e6);
-        assertEq(pool.advanced(id), 294e6);
+        assertEq(pool.advanced(id), 292.5e6);
         assertEq(uint8(_status(id)), uint8(Status.FINANCED));
 
         uint256 payerBefore = usdc.balanceOf(payer);
         vm.expectEmit(address(pool));
-        emit TibaPool.RepaymentReceived(id, payer, payer, 300e6, 4.8e6, 1.2e6, false);
+        emit TibaPool.RepaymentReceived(id, payer, payer, 300e6, 6e6, 1.5e6, false);
         vm.prank(payer);
         pool.repay(id);
 
         assertEq(payerBefore - usdc.balanceOf(payer), 300e6);
-        assertEq(usdc.balanceOf(treasury), 1.2e6);
-        assertEq(pool.totalAssets(), LIQUIDITY + 4.8e6);
-        assertEq(pool.available(), LIQUIDITY + 4.8e6);
+        assertEq(usdc.balanceOf(treasury), 1.5e6);
+        assertEq(pool.totalAssets(), LIQUIDITY + 6e6);
+        assertEq(pool.available(), LIQUIDITY + 6e6);
         assertEq(pool.deployed(), 0);
         assertEq(pool.outstanding(payer), 0);
-        assertEq(usdc.balanceOf(address(pool)), LIQUIDITY + 4.8e6);
-        assertEq(pool.totalFeesToPool(), 4.8e6);
-        assertEq(pool.totalFeesToTreasury(), 1.2e6);
+        assertEq(usdc.balanceOf(address(pool)), LIQUIDITY + 6e6);
+        assertEq(pool.totalFeesToPool(), 6e6);
+        assertEq(pool.totalFeesToTreasury(), 1.5e6);
         assertEq(uint8(_status(id)), uint8(Status.REPAID));
 
         TibaPool.PayerStats memory st = pool.payerStats(payer);
@@ -48,12 +48,12 @@ contract TibaPoolTest is TibaBase {
         assertEq(st.lateCount, 0);
         assertEq(st.totalRepaid, 300e6);
 
-        // share value rose: the sole investor can now take out principal + 4.80
-        assertApproxEqAbs(pool.maxWithdraw(investor), LIQUIDITY + 4.8e6, 1); // virtual-share rounding
+        // share value rose: the sole investor can now take out principal + 6.00
+        assertApproxEqAbs(pool.maxWithdraw(investor), LIQUIDITY + 6e6, 1); // virtual-share rounding
         uint256 allShares = pool.sharesOf(investor);
         vm.prank(investor);
         uint256 out = pool.withdraw(allShares);
-        assertApproxEqAbs(out, LIQUIDITY + 4.8e6, 1);
+        assertApproxEqAbs(out, LIQUIDITY + 6e6, 1);
     }
 
     function test_repay_late_isRecorded() public {
@@ -143,7 +143,7 @@ contract TibaPoolTest is TibaBase {
     function test_advance_revertsWithoutLiquidity() public {
         uint256 id = _delivered(FEE);
         vm.prank(carrier);
-        vm.expectRevert(abi.encodeWithSelector(TibaPool.InsufficientLiquidity.selector, 294e6, 0));
+        vm.expectRevert(abi.encodeWithSelector(TibaPool.InsufficientLiquidity.selector, 292.5e6, 0));
         pool.requestAdvance(id);
     }
 
@@ -155,7 +155,7 @@ contract TibaPoolTest is TibaBase {
         vm.prank(carrier);
         vm.expectRevert(abi.encodeWithSelector(TibaPool.NotDelivered.selector, Status.FINANCED));
         pool.requestAdvance(id);
-        assertEq(usdc.balanceOf(carrier), 294e6);
+        assertEq(usdc.balanceOf(carrier), 292.5e6);
     }
 
     // ---------------------------------------------------------------- invariant 7: outstanding <= credit limit
@@ -216,20 +216,20 @@ contract TibaPoolTest is TibaBase {
 
     function test_withdraw_limitedByAvailable() public {
         _deposit(investor, 1_000e6);
-        _financed(FEE); // 294 out
-        assertEq(pool.available(), 706e6);
-        assertEq(pool.maxWithdraw(investor), 706e6);
+        _financed(FEE); // 292.50 out
+        assertEq(pool.available(), 707.5e6);
+        assertEq(pool.maxWithdraw(investor), 707.5e6);
 
         uint256 shares = pool.sharesOf(investor);
         vm.prank(investor);
-        vm.expectRevert(abi.encodeWithSelector(TibaPool.InsufficientLiquidity.selector, 1_000e6, 706e6));
+        vm.expectRevert(abi.encodeWithSelector(TibaPool.InsufficientLiquidity.selector, 1_000e6, 707.5e6));
         pool.withdraw(shares);
 
         uint256 maxShares = pool.maxRedeem(investor);
         vm.prank(investor);
         uint256 out = pool.withdraw(maxShares);
-        assertLe(out, 706e6);
-        assertApproxEqAbs(out, 706e6, 1);
+        assertLe(out, 707.5e6);
+        assertApproxEqAbs(out, 707.5e6, 1);
         assertLe(pool.available(), 1);
     }
 
@@ -246,7 +246,7 @@ contract TibaPoolTest is TibaBase {
         _deposit(investor, 1_000e6);
         uint256 id = _financed(FEE);
         vm.prank(payer);
-        pool.repay(id); // +4.80 to the first investor
+        pool.repay(id); // +6.00 to the first investor
 
         address second = makeAddr("second");
         vm.prank(admin);
@@ -256,7 +256,7 @@ contract TibaPoolTest is TibaBase {
         pool.deposit(1_000e6);
         vm.stopPrank();
 
-        assertApproxEqAbs(pool.balanceOfAssets(investor), 1_004.8e6, 1);
+        assertApproxEqAbs(pool.balanceOfAssets(investor), 1_006e6, 1);
         assertApproxEqAbs(pool.balanceOfAssets(second), 1_000e6, 1);
         assertLt(pool.sharesOf(second), pool.sharesOf(investor));
     }
@@ -339,7 +339,7 @@ contract TibaPoolTest is TibaBase {
         uint256 id = _financed(FEE);
         vm.prank(payer);
         pool.repay(id);
-        assertEq(usdc.balanceOf(t2), 1.2e6);
+        assertEq(usdc.balanceOf(t2), 1.5e6);
         assertEq(usdc.balanceOf(treasury), 0);
     }
 
@@ -350,7 +350,7 @@ contract TibaPoolTest is TibaBase {
         _deposit(investor, LIQUIDITY);
         uint256 id = _financed(amount);
         uint256 advance = pool.advanced(id);
-        assertEq(advance, uint256(amount) * 9800 / 10_000);
+        assertEq(advance, uint256(amount) * pool.ADVANCE_BPS() / 10_000);
 
         uint256 tBefore = usdc.balanceOf(treasury);
         vm.prank(payer);

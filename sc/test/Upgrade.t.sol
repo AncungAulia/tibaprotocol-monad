@@ -89,8 +89,8 @@ contract UpgradeTest is Test {
         assertEq(pool.owner(), admin);
         assertEq(pool.creditLimit(payer), 3_000e6);
         assertEq(pool.outstanding(payer), 300e6);
-        assertEq(pool.available(), 706e6);
-        assertEq(pool.deployed(), 294e6);
+        assertEq(pool.available(), 707.5e6);
+        assertEq(pool.deployed(), 292.5e6);
         assertEq(pool.sharesOf(investor), 1_000e6);
         assertEq(pool.treasury(), treasury);
 
@@ -100,7 +100,7 @@ contract UpgradeTest is Test {
         pool.repay(1);
         vm.stopPrank();
         assertEq(uint8(sm.getShipment(1).status), uint8(Status.REPAID));
-        assertEq(pool.totalAssets(), 1_004.8e6);
+        assertEq(pool.totalAssets(), 1_006e6);
     }
 
     function test_upgrade_onlyOwner() public {

@@ -6,7 +6,7 @@ TIBA contracts on Monad testnet (chain id 10143), built with Foundry.
 |---|---|---|
 | `MockUSDC` | plain ERC-20, 6 decimals | Test USDC with a public faucet (1,000 USDC per wallet per hour) and an owner `mint` |
 | `ShipmentManager` | UUPS proxy | Shipment records and the status cycle (APPROVED, IN_TRANSIT, DELIVERED or DISPUTED, FINANCED, REPAID) |
-| `TibaPool` | UUPS proxy | Investor liquidity, credit limits, 98% advances, repayments (80% of the spread to the pool, 20% to the treasury) |
+| `TibaPool` | UUPS proxy | Investor liquidity, credit limits, 97.5% advances, repayments (80% of the spread to the pool, 20% to the treasury) |
 
 The package also exports typed ABIs and addresses for `fe` and `be` as TypeScript source (`index.ts`), so they need no build step. Relative imports use `.ts` extensions: bundlers need `allowImportingTsExtensions`, and an emitting `tsc` needs `rewriteRelativeImportExtensions`.
 

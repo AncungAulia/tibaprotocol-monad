@@ -14,7 +14,10 @@ import {Upgrades, Options} from "openzeppelin-foundry-upgrades/Upgrades.sol";
 ///   TARGET       "ShipmentManager" or "TibaPool"
 ///   NEW_IMPL     new contract file/name, e.g. "ShipmentManagerV2.sol". It must carry
 ///                `@custom:oz-upgrades-from <Old>` or REFERENCE must be set.
-///   REFERENCE    optional reference contract, e.g. "ShipmentManager.sol"
+///   REFERENCE    optional reference contract, e.g. "ShipmentManager.sol", or
+///                "build-info-v1:TibaPool" together with REFERENCE_BUILD_INFO_DIR
+///   REFERENCE_BUILD_INFO_DIR  optional, e.g. "previous-builds/build-info-v1": a copy of
+///                `out/build-info` from the deployed version, for upgrading a contract in place
 ///   CALL_DATA    optional hex calldata executed with the upgrade (e.g. initializeV2())
 /// Reads the proxy from deployments/<chainId>.json and records the new implementation there.
 contract Upgrade is Script {
@@ -34,6 +37,7 @@ contract Upgrade is Script {
 
         Options memory opts;
         opts.referenceContract = vm.envOr("REFERENCE", string(""));
+        opts.referenceBuildInfoDir = vm.envOr("REFERENCE_BUILD_INFO_DIR", string(""));
 
         vm.startBroadcast(pk);
         Upgrades.upgradeProxy(proxy, newImpl, data, opts);

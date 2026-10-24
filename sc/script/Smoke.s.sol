@@ -9,7 +9,7 @@ import {TibaPool} from "../src/TibaPool.sol";
 import {Status, Shipment} from "../src/interfaces/ITiba.sol";
 
 /// @notice End-to-end smoke test on the live deployment, with throwaway wallets:
-///         create -> pickup -> arrival -> carrier paid 98% -> payer repays.
+///         create -> pickup -> arrival -> carrier paid 97.5% -> payer repays.
 ///         Only PRIVATE_KEY (the owner) is required. Costs about 0.5 MON.
 ///         Below 10 MON, Monad rejects a MON transfer sent right after another transaction from the
 ///         same account. If a funding transfer fails, send it with `cast send` and rerun with the
@@ -78,7 +78,7 @@ contract Smoke is Script {
         uint256 advance = pool.requestAdvance(id);
         vm.stopBroadcast();
         _expect(sm, id, Status.FINANCED, "advance");
-        require(advance == 294e6, "advance is not 98%");
+        require(advance == 292.5e6, "advance is not 97.5%");
         require(usdc.balanceOf(carrier) == advance, "carrier not paid");
         require(pool.outstanding(payer) == FEE, "outstanding not recorded");
 
@@ -88,8 +88,8 @@ contract Smoke is Script {
         vm.stopBroadcast();
         _expect(sm, id, Status.REPAID, "repay");
         require(pool.outstanding(payer) == 0, "outstanding not cleared");
-        // 80% of the 6 USDC spread stays in the pool
-        require(pool.available() == availableBefore + 4.8e6, "pool did not earn its share");
+        // 80% of the 7.50 USDC spread stays in the pool
+        require(pool.available() == availableBefore + 6e6, "pool did not earn its share");
 
         console.log("shipment id", id);
         console.log("carrier got", advance);

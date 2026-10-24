@@ -235,7 +235,7 @@ contract ShipmentManagerTest is TibaBase {
         sm.confirmDelivery(id, true, 50);
 
         vm.expectEmit(address(sm));
-        emit ShipmentManager.Financed(id, 294e6);
+        emit ShipmentManager.Financed(id, 292.5e6);
         vm.prank(carrier);
         pool.requestAdvance(id);
 

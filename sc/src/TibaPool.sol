@@ -12,7 +12,7 @@ import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {Status, Shipment, IShipmentManager, ITibaPool} from "./interfaces/ITiba.sol";
 
 /// @title TibaPool
-/// @notice Investor liquidity pool that advances 98% of a delivered shipment's fee to the carrier and
+/// @notice Investor liquidity pool that advances 97.5% of a delivered shipment's fee to the carrier and
 ///         collects 100% from the payer at maturity. The spread is split 80% pool / 20% treasury.
 ///
 /// Share accounting
@@ -35,7 +35,7 @@ import {Status, Shipment, IShipmentManager, ITibaPool} from "./interfaces/ITiba.
 contract TibaPool is ITibaPool, Initializable, UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgradeable {
     using SafeERC20 for IERC20;
 
-    uint256 public constant ADVANCE_BPS = 9800;
+    uint256 public constant ADVANCE_BPS = 9750;
     uint256 public constant PROTOCOL_SHARE_BPS = 2000;
     uint256 public constant BPS = 10_000;
     uint256 public constant GRACE = 60; // seconds (demo)
@@ -180,7 +180,8 @@ contract TibaPool is ITibaPool, Initializable, UUPSUpgradeable, OwnableUpgradeab
 
     // ---------------------------------------------------------------- carrier
 
-    /// @notice Carrier takes 98% of a DELIVERED shipment's fee from the pool, right away.
+    /// @notice Carrier takes 97.5% of a DELIVERED shipment's fee from the pool, right away.
+    ///         Repayment later uses the advance recorded here, so a rate change never touches it.
     function requestAdvance(uint256 id) external nonReentrant returns (uint256 advance) {
         TibaPoolStorage storage $ = _s();
         Shipment memory sh = $.manager.getShipment(id);
@@ -193,7 +194,7 @@ contract TibaPool is ITibaPool, Initializable, UUPSUpgradeable, OwnableUpgradeab
         uint256 limit = $.creditLimit[sh.payer];
         if (out + amount > limit) revert CreditLimitExceeded(amount, out, limit);
 
-        advance = amount * ADVANCE_BPS / BPS;
+        advance = amount * _advanceBps() / BPS;
         if (advance > $.idle) revert InsufficientLiquidity(advance, $.idle);
 
         // effects
@@ -332,6 +333,11 @@ contract TibaPool is ITibaPool, Initializable, UUPSUpgradeable, OwnableUpgradeab
 
     function payerStats(address payer) external view returns (PayerStats memory) {
         return _s().stats[payer];
+    }
+
+    /// @dev Advance rate applied at financing time. Virtual only so tests can model an older rate.
+    function _advanceBps() internal pure virtual returns (uint256) {
+        return ADVANCE_BPS;
     }
 
     function advanced(uint256 id) external view returns (uint256) {
