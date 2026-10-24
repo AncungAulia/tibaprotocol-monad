@@ -49,7 +49,8 @@ export function FanMeter({
             <span
               className={cn(
                 "relative h-full overflow-hidden rounded-full bg-line-strong",
-                large ? "w-full -skew-x-[20deg]" : "w-[3.4px] -skew-x-[27deg]",
+                // Capped so wide cards space the bars out instead of turning them into ovals.
+                large ? "w-full max-w-[18px] -skew-x-[20deg]" : "w-[3.4px] -skew-x-[27deg]",
               )}
             >
               <span
