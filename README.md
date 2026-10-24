@@ -23,8 +23,7 @@ The prototype serves shipping companies (payers), carriers, warehouse receivers,
   <a href="#contract-deployment-and-verification">Contract deployment and verification</a>
   <br />
   <a href="#limitations--future-work">Limitations / Future Work</a> ·
-  <a href="#team-and-credits">Team and credits</a> ·
-  <a href="#validation-and-submission-gaps">Validation and submission gaps</a>
+  <a href="#team-and-credits">Team and credits</a>
 </p>
 
 ---
@@ -308,11 +307,3 @@ Git history attributes the following work; these are commit author names, not in
 Confirm the submission roster and contact details: `<TEAM_ROSTER_AND_CONTACT>`.
 
 Core dependencies include Next.js, React, Tailwind CSS, Privy, wagmi, viem, Supabase, Express, Zod, Foundry, forge-std, OpenZeppelin Contracts/Upgrades, MapLibre, Turf, Photon, OpenRouteService, CARTO, GSAP, and Lenis. Contracts carry SPDX MIT notices. Place-data credits and licenses are in [fe/public/places/README.md](fe/public/places/README.md); flag-icons attribution is in [its MIT license](fe/public/flags/LICENSE-flag-icons.txt). The landing README credits the `forepay/landing-page` architecture/motion reference. Several commits migrate earlier TIBA work; event-specific originality eligibility has not been established here.
-
----
-
-## Validation and submission gaps
-
-Documentation checks on 24 October 2026: package scripts, paths, example environment names, contract constants, tracked broadcast receipts, live app/landing HTTP 200 responses, public GitHub visibility, explorer source labels, and read-only RPC deployment evidence were inspected. Local frontend tests passed **79/79**, backend **108/108**, and landing **114/114**. `pnpm --filter @tiba/sc exec forge build` succeeded with Solidity 0.8.28 and timestamp-related lint warnings. Contract tests, production builds, typecheck scripts, fresh dependency installation, and the authenticated live flow were not run for this documentation change; their commands were checked against the repository. These results do not constitute a live end-to-end test.
-
-Before submission, fill `<TEAM_ROSTER_AND_CONTACT>`, confirm the TibaPool proxy's independent verification status, and rehearse the authenticated multi-role flow. The [organizer's submission guide](https://github.com/monad-developers/monad-blitz-jogja) directs teams to fork its template and continue through the [Blitz Portal](https://blitz.devnads.com). Template-fork compliance, portal submission, team registration, and complete eligibility have not been verified by this README update.
