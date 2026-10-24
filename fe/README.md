@@ -6,8 +6,14 @@ Next.js App Router app for all four roles at `app.tibaprotocol.xyz`.
 
 ```bash
 cp .env.example .env.local   # fill Privy + Supabase
+pnpm install                # from the repo root
 pnpm --filter @tiba/fe dev   # from the repo root
 ```
+
+Keep `.env.local` out of Git. Leave `NEXT_PUBLIC_USDC_ADDRESS`,
+`NEXT_PUBLIC_SHIPMENT_MANAGER_ADDRESS`, and `NEXT_PUBLIC_POOL_ADDRESS` empty
+to use the redeployed Monad testnet contracts from `@tiba/sc`.
+The root `pnpm-workspace.yaml` registers the Privy 3.51.0 patch in `patches/`.
 
 ## Structure
 
@@ -25,12 +31,13 @@ src/
   modules/<role>/        components/ (screens + parts), hooks/, data/ (mock data first)
   lib/                   env, chain (wagmi), contracts (@tiba/sc), api (be/), format, supabase
   providers/             Privy + React Query + wagmi
-  styles/globals.css     tokens from docs/DESIGN.md
+  styles/globals.css     shared design tokens
 ```
 
-The screens implement the existing role routes. See [integration status](../docs/frontend-integration.md) for service contracts, acceptance gaps, and verification limits. The backend and canonical contract package are not included in this checkout.
+The screens use the backend in [`be/`](../be/README.md) and the canonical
+contract package in [`sc/`](../sc/README.md) in this workspace.
 
-## Rules (docs/DESIGN.md)
+## UI rules
 
 - English only in the UI. Plain words: no "on-chain", "hash", "yield", "liquidity". Technical detail goes behind "View receipt".
 - Instrument Sans only, no monospace, no em dash, no uppercase with wide tracking. Currency is USDC only.
