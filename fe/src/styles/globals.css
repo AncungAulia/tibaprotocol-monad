@@ -1,0 +1,328 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "maplibre-gl/dist/maplibre-gl.css";
+
+/* Design tokens from docs/DESIGN.md. Light theme only. */
+:root {
+  --canvas: #f2f2f2;
+  --surface: #ffffff;
+  --subtle: #ededed;
+  --line: #e6e6e6;
+  --line-strong: #d6d6d6;
+  --ink: #111111;
+  --ink-2: #3d3d3d;
+  --muted-ink: #6b6b6b;
+
+  /* marigold "stamp": fills only, never as text */
+  --stamp: #ffc21a;
+  --stamp-deep: #7d5c00;
+  --stamp-ring: #b08200;
+  --stamp-soft: #fff7db;
+
+  --info: #2971c6;
+  --success: #1e7d3e;
+  --danger: #d42f34;
+  --warning: #e06a00;
+
+  /* shadcn aliases */
+  --background: var(--canvas);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: #ffffff;
+  --secondary: var(--surface);
+  --secondary-foreground: var(--ink);
+  --muted: var(--subtle);
+  --muted-foreground: var(--muted-ink);
+  --accent: var(--subtle);
+  --accent-foreground: var(--ink);
+  --destructive: var(--danger);
+  --border: var(--line);
+  --input: var(--line-strong);
+  --ring: var(--stamp-deep);
+  --radius: 1rem;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --shadow-float: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+@theme inline {
+  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted-ink: var(--muted-ink);
+  --color-stamp: var(--stamp);
+  --color-stamp-deep: var(--stamp-deep);
+  --color-stamp-ring: var(--stamp-ring);
+  --color-stamp-soft: var(--stamp-soft);
+  --color-info: var(--info);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-2xl: 32px;
+
+  --shadow-float: var(--shadow-float);
+  --ease-out: var(--ease-out);
+  --ease-in-out: var(--ease-in-out);
+
+  /* type scale: display, hero, amount, headline, title, heading, body, label, caption.
+     Register any new size in fe/src/lib/utils.ts so cn() keeps it next to a text color. */
+  --text-display: 56px;
+  --text-display--line-height: 60px;
+  /* hero amounts on black, marigold or pink cards: follows the card width (Card is a
+     @container), 32px on phones, up to 48px on wide cards */
+  --text-hero: clamp(2rem, 11cqi, 3rem);
+  --text-hero--line-height: 1.05;
+  /* default <Amount>: 32px on phones, 40px from about 1050px */
+  --text-amount: clamp(2rem, 1.4rem + 1.6vw, 2.5rem);
+  --text-amount--line-height: 1.05;
+  /* page H1: 28px on phones, 40px from about 880px */
+  --text-headline: clamp(1.75rem, 1.2rem + 2.4vw, 2.5rem);
+  --text-headline--line-height: 1.1;
+  --text-title: 28px;
+  --text-title--line-height: 34px;
+  --text-heading: 20px;
+  --text-heading--line-height: 28px;
+  --text-body: 15px;
+  --text-body--line-height: 22px;
+  --text-label: 13px;
+  --text-label--line-height: 18px;
+  --text-caption: 12px;
+  --text-caption--line-height: 16px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-canvas text-ink font-sans text-body;
+    font-variant-numeric: tabular-nums;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  /* double focus ring: white gap, marigold ring, ink edge */
+  :focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 3px #ffffff,
+      0 0 0 6px var(--stamp),
+      0 0 0 7px var(--ink);
+  }
+}
+
+@keyframes tiba-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.tiba-map-pickup {
+  width: 12px;
+  height: 12px;
+  border: 3px solid white;
+  border-radius: 50%;
+  background: var(--ink);
+}
+.tiba-map-destination {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 3px solid white;
+  border-radius: 8px;
+  background: var(--ink);
+  color: white;
+}
+.tiba-map-truck {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--stamp);
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 8px #ffc21a40;
+}
+.tiba-map-truck img {
+  width: 30px;
+  height: 30px;
+}
+.tiba-map-truck.is-paused {
+  filter: grayscale(1);
+  box-shadow: none;
+}
+@keyframes tiba-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes tiba-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes tiba-sheet-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes tiba-dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes tiba-dialog-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+@keyframes tiba-cashout {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.tiba-overlay[data-state="open"],
+.tiba-fade[data-state="open"] {
+  animation: tiba-fade-in 240ms var(--ease-out) both;
+}
+.tiba-overlay[data-state="closed"],
+.tiba-fade[data-state="closed"] {
+  animation: tiba-fade-out 240ms var(--ease-in-out) both;
+}
+.tiba-dialog[data-state="open"] {
+  animation: tiba-sheet-in 240ms var(--ease-out) both;
+}
+.tiba-dialog[data-state="closed"] {
+  animation: tiba-sheet-out 240ms var(--ease-in-out) both;
+}
+.tiba-popover[data-state="open"] {
+  animation: tiba-sheet-in 240ms var(--ease-out) both;
+}
+.tiba-popover[data-state="closed"] {
+  animation: tiba-sheet-out 240ms var(--ease-in-out) both;
+}
+.tiba-cashout {
+  animation: tiba-cashout 240ms var(--ease-out) both;
+}
+.tiba-meter-fill {
+  opacity: 0;
+  transition:
+    clip-path 160ms var(--ease-out),
+    opacity 160ms var(--ease-out);
+}
+.tiba-meter-fill[data-filled="true"] {
+  opacity: 1;
+}
+
+@media (min-width: 768px) {
+  .tiba-dialog[data-state="open"] {
+    animation-name: tiba-dialog-in;
+  }
+  .tiba-dialog[data-state="closed"] {
+    animation-name: tiba-dialog-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-delay: 0ms !important;
+  }
+  .tiba-overlay[data-state="open"],
+  .tiba-dialog[data-state="open"],
+  .tiba-popover[data-state="open"],
+  .tiba-fade[data-state="open"],
+  .tiba-cashout {
+    animation-name: tiba-fade-in;
+    animation-duration: 240ms !important;
+  }
+  .tiba-overlay[data-state="closed"],
+  .tiba-dialog[data-state="closed"],
+  .tiba-popover[data-state="closed"],
+  .tiba-fade[data-state="closed"] {
+    animation-name: tiba-fade-out;
+    animation-duration: 240ms !important;
+  }
+  .tiba-meter-fill {
+    clip-path: none !important;
+    transition-property: opacity;
+    transition-duration: 160ms !important;
+  }
+}
